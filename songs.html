@@ -13,15 +13,16 @@
     ];
 
     function suggestSong(){
-      let index = Math.floor(Mahr.random() * songs.length);
-      let suggestion = songs(index);
+      let index = Math.floor(Math.random() * songs.length);
+      let suggestion = songs[index];
       return suggestion;
     }
 
-    function searchForSont(word){
+    function searchForSong(word){
       word = word.toUpperCase();
       let song;
       for(let i = 0; i < songs.length; i++){
+        song = songs[i].toUpperCase();
         if(song.indexOf(word) >= 0){
           return song;
         }      
@@ -34,9 +35,9 @@
 
     let search_data = prompt("검색할 곡의 이름을 입력해주세요");
     let matchedSong = searchForSong(search_data);
-    alert("검색 결과 :" + mathchedSong);
+    alert("검색 결과 : " + matchedSong);
   </script>
-  
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>곡 제시 프로그램</title>
