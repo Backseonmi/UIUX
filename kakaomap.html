@@ -6,6 +6,10 @@
 </head>
 <body>
 	<div id="map" style="width:500px;height:400px;"></div>
+	<p>
+		<button onclick="setDraggable(false)">지도 드래그 이동 끄기</button>
+		<button onclick="setDraggable(true)">지도 드래그 이동 켜기</button>
+	</p>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10b354b4da9b637e8a06cb45cd594501"></script>
 	<script>
 		var container = document.getElementById('map');
@@ -15,6 +19,14 @@
 		};
 
 		var map = new kakao.maps.Map(container, options);
+
+		// 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용
+		function setDraggable(draggable) {
+
+    // 마우스 드래그로 지도 이동 가능여부를 설정
+		map.setDraggable(draggable);    
+		}
+
 	</script>
 </body>
 </html>
