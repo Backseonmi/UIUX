@@ -10,6 +10,10 @@
 		<button onclick="setDraggable(false)">지도 드래그 이동 끄기</button>
 		<button onclick="setDraggable(true)">지도 드래그 이동 켜기</button>
 	</p>
+
+	<p><em>지도를 움직여 주세요!</em></p> 
+	<p id="result"></p>
+
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10b354b4da9b637e8a06cb45cd594501"></script>
 	<script>
 		var container = document.getElementById('map');
@@ -28,7 +32,21 @@
 		}
 
 		// 지도에 교통정보를 표시하도록 지도타입을 추가합니다
-		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);  
+		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+
+		// 마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+		kakao.maps.event.addListener(map, 'dragend', function() {        
+				
+				// 지도 중심좌표를 얻어옵니다 
+				var latlng = map.getCenter(); 
+				
+				var message = '변경된 지도 중심좌표는 ' + latlng.getLat() + ' 이고, ';
+				message += '경도는 ' + latlng.getLng() + ' 입니다';
+				
+				var resultDiv = document.getElementById('result');  
+				resultDiv.innerHTML = message;
+				
+		});
 
 	</script>
 </body>
