@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image</title>
+</head>
+
+<style>
+  .imgCont{
+    text-align: center;
+  }
+  .imgCont img{
+    width: 300px;
+    height: 300px;
+    padding: 3px;
+    position: relative;
+    cursor: pointer;
+    z-index: 999;
+    vertical-align: top;
+  }
+</style>
+
+<body>
+  <div class = "imgCont">
+    <br>
+      <img src="IMG/dog.png" onclick="imgContCopy(this)">
+      <img src="IMG/lion.png" onclick="imgContCopy(this)">
+      <img src="IMG/snake.png" onclick="imgContCopy(this)">
+      <img src="IMG/tiger.png" onclick="imgContCopy(this)">
+      <img src="IMG/whale.png" onclick="imgContCopy(this)">
+    </br>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  
+  <script>
+    function imgContCopy(imgCont_o){
+      let pos = $(imgCont_o).offset(); //클릭한 이미지 위치 알아내기
+      let red1 = Math.round(Math.random() * 900 - 850);
+      let red2 = Math.round(Math.random() * 900 - 450);
+
+      //클릭한 이미지 기준으로 이동할 위치 계산
+      let move_top = pos.top - red1;
+      let move_left = pos.left - red2;
+      console.log("DIKD", move_top, move_left)
+
+      $(imgCont_o)
+      .clone()  //복제
+      .appendTo('.imgCont')  //복제한 사진 넣기
+      .css({top:pos.top, left:pos.left, position:'absolute'})
+      .animate({top:move_top, left:move_left}, 1000, function(){
+        let img = this;
+        setTimeout(function(){$(img).remove();}, 3000);  //3초 후에 삭제
+      });
+      
+    }
+  </script>
+  
+  
+</body>
+</html>
