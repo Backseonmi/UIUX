@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+  <style>
+    .pointer{
+      cursor: pointer;
+    }
+  </style>
+
+  <title>jquery2</title>
+</head>
+<body>
+  <div class="displaySlide">
+    <p class="pointer">침대엔</p>
+    <div>배개가 있어야지</div>
+  </div>
+  <div class="displaySlide">
+    <p class="pointer">이 시간엔</p>
+    <div>배에서 소리가 나지</div>
+  </div>
+  <div class="displaySlide">
+    <p class="pointer">하지만 오늘 점심은</p>
+    <div>맛이 없지</div>
+  </div>
+
+  <script>
+    $(function(){
+      $(".displaySlide div").slideUp();
+      $(".displaySlide p").on('click', function(e){
+        $(this).next().slideToggle();
+      });
+    });
+  </script>
+
+</body>
+</html>

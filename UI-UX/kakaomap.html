@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Kakao 지도 + 부트스트랩</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body>
+	<div id="map" style="width:500px;height:400px;"></div>
+	<p>
+		<button type="button" class="btn btn-outline-primary" onclick="setDraggable(false)">지도 드래그 이동 끄기</button>
+		<button type="button" class="btn btn-outline-primary" onclick="setDraggable(true)">지도 드래그 이동 켜기</button>
+	</p>
+	
+	<button type="button" class="btn btn-outline-primary">지도를 움직여봐</button>
+	<p id="result"></p>
+
+	<button type="button" class="btn btn-outline-primary">지도를 클릭해봐</button>
+	<p id="result-click"></p>
+
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=10b354b4da9b637e8a06cb45cd594501"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+
+		// 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용
+		function setDraggable(draggable) {
+
+    // 마우스 드래그로 지도 이동 가능여부를 설정
+		map.setDraggable(draggable);    
+		}
+
+		// 지도에 교통정보를 표시하도록 지도타입을 추가합니다
+		map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);
+
+		// 마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
+		kakao.maps.event.addListener(map, 'dragend', function() {        
+				
+				// 지도 중심좌표를 얻어옵니다 
+				var latlng = map.getCenter(); 
+				
+				var message = '변경된 지도 중심좌표는 ' + latlng.getLat() + ' 이고, ';
+				message += '경도는 ' + latlng.getLng() + ' 입니다';
+				
+				var resultDiv = document.getElementById('result');  
+				resultDiv.innerHTML = message;
+		});
+
+	// 지도에 클릭 이벤트를 등록합니다
+	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+		
+		// 클릭한 위도, 경도 정보를 가져옵니다 
+		var latlng = mouseEvent.latLng;
+		
+		var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+		message += '경도는 ' + latlng.getLng() + ' 입니다';
+		
+		var resultDiv = document.getElementById('result-click'); 
+		resultDiv.innerHTML = message;
+		
+	});
+
+	
+
+	</script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+	crossorigin="anonymous">
+	</script>
+</body>
+</html>
